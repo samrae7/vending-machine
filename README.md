@@ -1,4 +1,17 @@
-####Programming Exercise: Vending Machine Exercise
+###Programming Exercise: Vending Machine Exercise
+
+####To launch
+
+- Clone repo and ensure you have Ruby installed on your machine.
+
+- In the command line, Cd into the 'lib' folder and run app.rb ```Ruby app.rb```
+
+- Follow the command line prompts to buy a chocolate bar 
+
+
+The program is built in Ruby using TDD to build the 'Machine' class that has all the methods in. The C
+
+####Brief
 Design a vending machine using a programming language of your choice. The vending machine should perform as follows:
 
 - Once an item is selected and the appropriate amount of money is inserted, the vending machine should return the correct product.
