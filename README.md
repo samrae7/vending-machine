@@ -8,8 +8,8 @@
 
 - Follow the command line prompts to buy a chocolate bar 
 
-
-The program is built in Ruby using TDD to build the 'Machine' class that has all the methods in. The C
+####About
+The program is built in Ruby using TDD to build the 'Machine' class that has all the methods in.
 
 ####Brief
 Design a vending machine using a programming language of your choice. The vending machine should perform as follows:
