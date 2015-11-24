@@ -72,8 +72,48 @@ describe Machine do
 
   it "should add a 20p  to the tally of coins for the latest purchase when a 20p is entered" do
     machine.coinsEnteredThisPurchase= [10,1,2,5]
-    machine addCoin 20
+    machine.addCoin 20
     expect(machine.coinsEnteredThisPurchase).to eq([10,1,2,5,20])
   end
+
+  it "should know the total (in pence) of coins entered, 10p, 1p, 2p, 5p is 18p" do
+    machine.coinsEnteredThisPurchase= [10,1,2,5]
+    machine.sumCoins 
+    expect(machine.totalThisPurchase).to eq(18)
+  end
+
+  it "should know the total (in pence) of coins entered, 10p, 10p, £1, 20p is 140" do
+    machine.coinsEnteredThisPurchase= [10,10,100,20]
+    machine.sumCoins 
+    expect(machine.totalThisPurchase).to eq(140)
+  end
+
+  it "should ask for more money if the toblerone is selected and only 50p has been put in so far" do
+    machine.totalThisPurchase = 50
+    machine.choice = 'toblerone'
+    expect(machine.message).to eq("please enter more money")
+  end
+
+  it "should display a thank you message if twix is selected and 55 pence has been put in" do
+    machine.totalThisPurchase = 55
+    machine.choice = 'twix'
+    machine.checkPrice
+    expect(machine.message).to eq("Please collect your chocolate below")
+  end
+
+  it "it should give 5p change if twix is selected and 60 pence has been put in" do
+    machine.totalThisPurchase = 60
+    machine.choice = 'twix'
+    machine.checkPrice
+    expect(machine.message).to eq("Your change is 5p. Please collect your chocolate below.")
+  end
+
+  it "should ask for the correct amount of money (110p) when you select a kit kat" do
+    machine.choice = 'kit kat'
+    machine.sayPrice
+    expect(machine.message).to eq("You chose a kit kat. Please enter 110p")
+  end
+
+
 
 end
