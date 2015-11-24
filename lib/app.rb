@@ -16,12 +16,19 @@ puts "Hit RETURN to buy something or enter 'x' to access engineer tasks"
 
 until customer==false do
 
-  puts machine.message
+  puts "Choose from #{machine.products}"
 
-  machine.choice = gets.chomp
+  choice = gets.chomp
+  machine.choice = choice
+
+  until machine.products.include?(choice) do
+    puts "That product is out of stock. Please enter another"
+    choice = gets.chomp
+    machine.choice = choice
+  end
 
     until machine.productNames.include?(machine.choice) do
-      puts "That product isn't available. Please type one of #{machine.productNames}"
+      puts "That product isn't recognised. Please type one of #{machine.productNames}"
       machine.choice = gets.chomp
     end
 
@@ -35,10 +42,10 @@ until customer==false do
 
     machine.latestCoin = gets.chomp.to_i
 
-    until machine.denominations.include?(machine.latestCoin) do
-      puts "That's not a coin. Please type one of #{machine.denominations}"
-      machine.latestCoin = gets.chomp.to_i
-    end
+      until machine.denominations.include?(machine.latestCoin) do
+        puts "That's not a coin. Please type one of #{machine.denominations}"
+        machine.latestCoin = gets.chomp.to_i
+      end
 
     machine.addCoin machine.latestCoin
     machine.sumCoins
@@ -48,7 +55,18 @@ until customer==false do
   machine.checkPrice
 
   puts machine.message
-  exit
+
+  machine.sellItem choice
+  machine.coinsEnteredThisPurchase=[0]
+  machine.totalThisPurchase = 0
+
+  puts "Do you want to buy another? (Y/N)"
+  continue_answer = gets.chomp
+  if continue_answer=='N'
+    customer=false
+    exit
+  end
+
 end
 
 # ENGINEER TASKS
