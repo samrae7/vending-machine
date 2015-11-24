@@ -2,39 +2,70 @@ require_relative './vending_app'
 
 machine = Machine.new
 
-puts machine.message
 
-machine.choice = gets.chomp
+puts "Hit RETURN to buy something or enter 'x' to access engineer tasks"
 
-  until machine.productNames.include?(machine.choice) do
-    puts "That product isn't available. Please type one of #{machine.productNames}"
-    machine.choice = gets.chomp
+ person = gets.chomp
+  if person==''
+    customer=true
+  elsif person=='x'
+    customer=false
+  else
+    puts 'Please re-enter'
   end
 
-puts "You've chosen a #{machine.choice}. The price is #{machine.products[machine.choice]}p"
-
-until  machine.totalThisPurchase >= machine.products[machine.choice] do
-  
-  machine.checkPrice
+until customer==false do
 
   puts machine.message
 
-  machine.latestCoin = gets.chomp.to_i
+  machine.choice = gets.chomp
 
-  until machine.denominations.include?(machine.latestCoin) do
-    puts "That's not a coin. Please type one of #{machine.denominations}"
+    until machine.productNames.include?(machine.choice) do
+      puts "That product isn't available. Please type one of #{machine.productNames}"
+      machine.choice = gets.chomp
+    end
+
+  puts "You've chosen a #{machine.choice}. The price is #{machine.products[machine.choice]}p"
+
+  until  machine.totalThisPurchase >= machine.products[machine.choice] do
+    
+    machine.checkPrice
+
+    puts machine.message
+
     machine.latestCoin = gets.chomp.to_i
+
+    until machine.denominations.include?(machine.latestCoin) do
+      puts "That's not a coin. Please type one of #{machine.denominations}"
+      machine.latestCoin = gets.chomp.to_i
+    end
+
+    machine.addCoin machine.latestCoin
+    machine.sumCoins
+
   end
 
-  machine.addCoin machine.latestCoin
-  machine.sumCoins
+  machine.checkPrice
 
+  puts machine.message
+  exit
 end
 
-machine.checkPrice
+# ENGINEER TASKS
+
+  puts "Enter 'c' to reset cash OR 's' to reload stock"
+
+  answer = gets.chomp
+  if answer == 'c' then
+    machine.loadMoney
+    puts "Coins in the machine are reset: #{machine.coins}"
+
+  elsif answer == 's' then
+    machine.loadProducts
+    puts "Products are restocked: #{machine.products}"
+  end
 
 
-puts machine.message
 
 
 

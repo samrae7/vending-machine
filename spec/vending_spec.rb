@@ -91,7 +91,8 @@ describe Machine do
   it "should ask for more money if the toblerone is selected and only 50p has been put in so far" do
     machine.totalThisPurchase = 50
     machine.choice = 'toblerone'
-    expect(machine.message).to eq("please enter more money")
+    machine.checkPrice
+    expect(machine.message).to eq("Please enter a coin (type one of [1, 2, 5, 10, 20, 50, 100, 200])")
   end
 
   it "should display a thank you message if twix is selected and 55 pence has been put in" do
@@ -113,7 +114,5 @@ describe Machine do
     machine.sayPrice
     expect(machine.message).to eq("You chose a kit kat. Please enter 110p")
   end
-
-
 
 end
