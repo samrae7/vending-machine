@@ -1,11 +1,12 @@
 require 'pry'
 
 class Machine
-  attr_accessor :returnedProduct, :choice, :coins, :totalMoney, :products, :coinsEnteredThisPurchase, :money, :totalThisPurchase, :message
+  attr_accessor :returnedProduct, :choice, :coins, :totalMoney, :products, :coinsEnteredThisPurchase, :money, :totalThisPurchase, :message, :latestCoin, :productNames, :denominations
 
   def initialize
-    @message = "please enter more money"
+    @latestCoin
     @money= false
+    @productNames = ['mars','dairy milk','twix','kit kat','toblerone']
     @products = {
       'mars'=> 70,
       'dairy milk' => 65,
@@ -15,6 +16,8 @@ class Machine
     }
     @choice=''
     @returnedProduct
+    @denominations = [1,2,5,10,20,50,100,200]
+    @message = "Choose from #{@productNames}"
     @coins = {
       1 => 100,
       2 => 100,
@@ -25,8 +28,8 @@ class Machine
       100 => 10,
       200 => 5
     }
-    @coinsEnteredThisPurchase=[]
-    @totalThisPurchase
+    @coinsEnteredThisPurchase=[0]
+    @totalThisPurchase = 0
     
   end
 
@@ -92,7 +95,7 @@ class Machine
       change = @totalThisPurchase - @products[@choice]
       @message = "Your change is " + change.to_s + "p. Please collect your chocolate below."
     else
-      @message = "please enter more money"
+      @message = "Please enter a coin (type one of #{@denominations})"
     end
   end
 
