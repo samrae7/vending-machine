@@ -12,7 +12,7 @@ class Machine
       10 => 50,
       20 => 25
     }
-    @totalMoney = 0
+    
   end
 
   def hasChocolateBars?
@@ -56,7 +56,6 @@ class Machine
 
   def addCoin denomination
     @coins[denomination] += 1
-    @totalMoney += 0.1
   end
 
 end

@@ -52,27 +52,6 @@ describe Machine do
     expect(machine.coins.any? {|k,v| v > 0}).to be true
   end
 
-  it "should have total money equal to zero when there are zero coins" do
-    machine.coins = {
-      1 => 100,
-      2 => 100,
-      5 => 100,
-      10 => 50,
-      20 => 25,
-      50 => 20,
-      1.00 => 10,
-      2.00 => 5
-    }
-    expect(machine.totalMoney).to eq(0)
-  end
-
-  it "should increase total money by 10p when a 10p coin is added" do
-    money1 = machine.totalMoney
-    machine.addCoin 10
-    money2 = machine.totalMoney
-    expect(money2 - money1).to eq(0.1)
-  end
-
   it "should increase number of 10p coins by 1 when a 10p coin is added" do
     tenPenceCoins = machine.coins[10]
     machine.addCoin 10
@@ -91,10 +70,10 @@ describe Machine do
     expect(machine.products).to eq(['dairy milk'])
   end
 
-  it "should add an entered 20p piece to the tally of coins entered for the latest purchase" do
-    machine.coinsEnteredThispurchase= [10,1,2,5]
+  it "should add a 20p  to the tally of coins for the latest purchase when a 20p is entered" do
+    machine.coinsEnteredThisPurchase= [10,1,2,5]
     machine addCoin 20
-    expect(machine.coinsEnteredThispurchase).to eq([10,1,2,5,20])
+    expect(machine.coinsEnteredThisPurchase).to eq([10,1,2,5,20])
   end
 
 end
